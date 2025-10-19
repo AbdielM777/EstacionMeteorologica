@@ -30,7 +30,7 @@ namespace EstacionMeteorologica
             sensorFS300A = new FS300A();
             sensorYL83 = new YL83();
             sensorML8511 = new ML8511();
-            timer1.Interval = 10000;
+            timer1.Interval = 6000;
             timer1.Enabled = true;
             timer1.Tick += timer1_Tick;
         }
@@ -55,11 +55,47 @@ namespace EstacionMeteorologica
             lblFS300A.Text = $"FS300A: {sensorFS300A.Valor} {sensorFS300A.Unidad}";
             lblYL83.Text = $"YL-83: {sensorYL83.Valor} {sensorYL83.Unidad}";
             lblML8511.Text = $"ML8511: {sensorML8511.Valor} {sensorML8511.Unidad}";
-        }
+            ActualizarDashboard();
 
-        private async void btnActualizar_Click(object sender, EventArgs e)
+        }
+        private void ActualizarDashboard()
         {
-            await ActualizarLabelsAsync();
+            string dashboard = "";
+
+
+            if (sensorPMS5003.Valor <= 12) dashboard += "PM2.5: bueno. ";
+            else if (sensorPMS5003.Valor <= 35) dashboard += "PM2.5: regular. ";
+            else dashboard += "PM2.5: alto. ";
+
+            if (sensorMHZ19.Valor <= 1000) dashboard += "CO2 normal. ";
+            else if (sensorMHZ19.Valor <= 2000) dashboard += "CO2 elevado. ";
+            else dashboard += "CO2 peligroso. ";
+
+            if (sensorBME680.Valor >= 18 && sensorBME680.Valor <= 26) dashboard += "Temperatura confortable. ";
+            else if (sensorBME680.Valor < 18) dashboard += "Hace frío. ";
+            else dashboard += "Hace calor. ";
+
+            
+            if (sensorBME680.Unidad.Contains("%")) 
+            {
+                if (sensorBME680.Valor >= 30 && sensorBME680.Valor <= 60) dashboard += "Humedad ideal. ";
+                else dashboard += "Humedad fuera de rango. ";
+            }
+
+            if (sensorFS300A.Valor < 3) dashboard += "Viento leve. ";
+            else if (sensorFS300A.Valor < 8) dashboard += "Viento moderado. ";
+            else dashboard += "Viento fuerte. ";
+
+            if (sensorYL83.Valor == 0) dashboard += "Sin lluvia. ";
+            else dashboard += "Está lloviendo. ";
+
+            if (sensorML8511.Valor <= 2) dashboard += "UV bajo. ";
+            else if (sensorML8511.Valor <= 5) dashboard += "UV moderado. ";
+            else if (sensorML8511.Valor <= 7) dashboard += "UV alto. ";
+            else if (sensorML8511.Valor <= 10) dashboard += "UV muy alto. ";
+            else dashboard += "UV extremo. ";
+
+            lblDashboard.Text = dashboard;
         }
 
 
@@ -69,6 +105,12 @@ namespace EstacionMeteorologica
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
+        {
+            await ActualizarLabelsAsync();
+
+        }
+
+        private async void btnActualizar_Click_1(object sender, EventArgs e)
         {
             await ActualizarLabelsAsync();
 

@@ -38,6 +38,7 @@
             this.lblMHZ19 = new System.Windows.Forms.Label();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblDashboard = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblPMS5003
@@ -114,22 +115,33 @@
             // 
             // btnActualizar
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(639, 225);
+            this.btnActualizar.Location = new System.Drawing.Point(114, 292);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(75, 23);
             this.btnActualizar.TabIndex = 8;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click_1);
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lblDashboard
+            // 
+            this.lblDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDashboard.Location = new System.Drawing.Point(376, 64);
+            this.lblDashboard.Name = "lblDashboard";
+            this.lblDashboard.Size = new System.Drawing.Size(400, 200);
+            this.lblDashboard.TabIndex = 9;
+            this.lblDashboard.Text = "label8";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblDashboard);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.lblMHZ19);
             this.Controls.Add(this.lblML8511);
@@ -157,6 +169,7 @@
         private System.Windows.Forms.Label lblMHZ19;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lblDashboard;
     }
 }
 
